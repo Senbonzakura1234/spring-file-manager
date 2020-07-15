@@ -1,0 +1,26 @@
+<form th:fragment="_navbar" xmlns:th="http://www.w3.org/1999/xhtml"
+      th:action="@{/file}" method="get"
+    class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" th:href="@{/}" th:text="${msg}"></a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed"
+            type="button" data-toggle="collapse" data-target="#sidebarMenu"
+            aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="form-row w-100 px-md-2 mx-0">
+        <div class="col-12 col-md-8 col-lg-9 col-xl-10 px-0 px-md-2">
+            <input class="form-control form-control-sm
+                form-control-dark py-0" name="queryName"
+                th:value="${queryName}"
+                type="text" placeholder="Search" aria-label="Search">
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 px-0 px-md-2">
+            <select aria-label="status" class="form-control py-0
+                custom-select custom-select-sm" name="fileStatus">
+                <option th:each="option : ${statusList}"
+                        th:value="${option.value}"
+                        th:text="${option.name}" th:selected="${option.selected}"></option>
+            </select>
+        </div>
+    </div>
+</form>

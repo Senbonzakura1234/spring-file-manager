@@ -1,0 +1,37 @@
+<!doctype html>
+<!--suppress ALL -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/partials/_headTag :: _headTag"/>
+
+    <!-- Custom stylesheet for this page-->
+    <th:block layout:fragment="stylesheet_custom"/>
+    <!-- End custom stylesheet for this page-->
+    <script src="https://kit.fontawesome.com/f4bb5974c6.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="loader bg-light">
+    <i class="fas fa-circle-notch text-dark fa-spin fa-6x mx-auto"></i>
+</div>
+<form th:replace="fragments/partials/_navbar :: _navbar"
+     class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"/>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="fragments/partials/_sidebar :: _sidebar"
+             id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"/>
+        <main layout:fragment="content" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4"></main>
+    </div>
+</div>
+
+<th:block th:replace="fragments/partials/_footTag :: _footTag"/>
+
+
+<!-- Custom js for this page-->
+<th:block layout:fragment="script_custom"/>
+<!-- End custom js for this page-->
+
+</body>
+</html>
