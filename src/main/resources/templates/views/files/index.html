@@ -126,7 +126,7 @@
 
             <li class="page-item" th:if="${currentPage + 1 < totalPages}">
                 <a class="page-link" aria-label="Next"
-                   th:href="@{/file(page=${currentPage + 3},
+                   th:href="@{/file(page=${currentPage + 1},
                    queryName = ${query}, fileStatus = ${status})}">
                     <span data-feather="chevron-right"></span>
                 </a>
