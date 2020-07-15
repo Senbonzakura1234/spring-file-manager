@@ -21,6 +21,6 @@ public class GlobalVariables {
                     item == File.StatusEnum.UNDEFINED));
         }
         model.addAttribute("statusList", statusList);
-        model.addAttribute("msg", "Welcome");
+        model.addAttribute("msg", "File Manager");
     }
 }
