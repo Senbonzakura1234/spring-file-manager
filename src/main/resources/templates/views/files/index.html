@@ -92,7 +92,7 @@
             </li>
             <li class="page-item" th:if="${currentPage > 0}">
                 <a class="page-link" aria-label="Previous"
-                   th:href="@{/file(page=${currentPage},
+                   th:href="@{/file(page=${currentPage - 1},
                     queryName = ${query}, fileStatus = ${status})}">
                     <span data-feather="chevron-left"></span>
                 </a>
