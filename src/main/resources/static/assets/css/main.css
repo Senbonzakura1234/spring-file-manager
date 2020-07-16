@@ -59,7 +59,7 @@ body {
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
     .sidebar {
         top: 5rem;
     }
@@ -165,3 +165,11 @@ td {
     }
 }
 
+.jump-page-input{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.jump-page-btn{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

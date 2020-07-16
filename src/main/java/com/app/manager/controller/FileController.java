@@ -32,7 +32,7 @@ public class FileController {
     public String index(Model model,
         @RequestParam(value = "queryName", required = false, defaultValue = "") String queryName,
         @RequestParam(value = "fileStatus", required = false) File.StatusEnum fileStatus,
-        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+        @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
         @RequestParam(name = "size", required = false, defaultValue = "10") Integer size,
         @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
 
@@ -53,7 +53,7 @@ public class FileController {
                 Sort.by("indexNumber").descending():
                 Sort.by("indexNumber").ascending();
 
-        Pageable pageable = PageRequest.of(page, size, sortable);
+        Pageable pageable = PageRequest.of(page <= 0? 0: page - 1, size, sortable);
         Page<ModelFile> files = fileService.getAll(queryName, status, pageable);
 
 
@@ -72,10 +72,10 @@ public class FileController {
         }
 
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("currentPage", currentPage + 1);
         model.addAttribute("totalItems", totalItems);
         model.addAttribute("offset", offset);
-        model.addAttribute("page", page);
+        model.addAttribute("page", page <= 0? 1: page);
         model.addAttribute("count", currentPageItems);
         model.addAttribute("files", files);
         model.addAttribute("query", queryName);
