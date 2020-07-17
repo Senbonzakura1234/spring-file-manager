@@ -33,7 +33,7 @@ public class FileController {
         @RequestParam(value = "queryName", required = false, defaultValue = "") String queryName,
         @RequestParam(value = "fileStatus", required = false) File.StatusEnum fileStatus,
         @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
-        @RequestParam(name = "size", required = false, defaultValue = "10") Integer size,
+        @RequestParam(name = "size", required = false, defaultValue = "20") Integer size,
         @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
 
         List<SelectOption> statusList = new ArrayList<>();
@@ -85,13 +85,17 @@ public class FileController {
 
     @PostMapping({"/file", "/file/index"})
     public String updateStatus(
+            @RequestParam(value = "query", required = false, defaultValue = "") String queryName,
+            @RequestParam(value = "statusFilter", required = false) File.StatusEnum fileStatus,
             @RequestParam(value = "checkedItem", required = false) List<String> listId,
             @RequestParam(value = "status", required = false) File.StatusEnum status){
+
+        var statusFilter = fileStatus != null? fileStatus : File.StatusEnum.UNDEFINED;
         if (status != null && status != File.StatusEnum.UNDEFINED
             && listId != null && listId.size() > 0) {
             DatabaseQueryResult result = fileService.updateStatusMulti(status, listId);
             System.out.println(result.getDescription());
         }
-        return "redirect:/file";
+        return "redirect:/file?queryName=" + queryName + "&fileStatus=" + statusFilter;
     }
 }

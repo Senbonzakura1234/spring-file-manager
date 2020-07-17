@@ -53,6 +53,11 @@
 <!-- Custom js for this page-->
 <th:block layout:fragment="script_custom"/>
 <!-- End custom js for this page-->
-
+<script type="text/javascript">
+    $(`.logout-btn`).click((e) =>{
+        e.preventDefault();
+        $(`#logout-form`).submit();
+    });
+</script>
 </body>
 </html>

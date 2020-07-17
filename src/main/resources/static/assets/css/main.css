@@ -173,3 +173,26 @@ td {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
+
+
+.input-group .leftItem{
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-group .leftItem select{
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-group .middleItem{
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+}
+
+.input-group .rightItem{
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

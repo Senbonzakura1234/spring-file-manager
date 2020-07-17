@@ -14,6 +14,14 @@
                     File
                 </a>
             </li>
+            <li class="nav-item">
+                <form class="d-none" id="logout-form"
+                      th:action="@{/logout}" action="#" method="post"></form>
+                <a class="nav-link logout-btn" th:href="@{/file}">
+                    <span data-feather="log-out"></span>
+                    Logout
+                </a>
+            </li>
 <!--            <li class="nav-item">-->
 <!--                <a class="nav-link" href="#">-->
 <!--                    <span data-feather="file"></span>-->

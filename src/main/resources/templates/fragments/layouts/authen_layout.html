@@ -1,0 +1,17 @@
+<!doctype html>
+<!--suppress ALL -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/partials/_headTag :: _headTag"/>
+
+    <!-- Custom stylesheet for this page-->
+    <th:block layout:fragment="stylesheet_custom"/>
+    <!-- End custom stylesheet for this page-->
+    <script src="https://kit.fontawesome.com/f4bb5974c6.js" crossorigin="anonymous"></script>
+</head>
+<body class="text-center">
+<th:block layout:fragment="content"/>
+</body>
+</html>
