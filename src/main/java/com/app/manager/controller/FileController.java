@@ -89,13 +89,13 @@ public class FileController {
             @RequestParam(value = "fileStatus", required = false) File.StatusEnum fileStatus,
             @RequestParam(value = "checkedItem", required = false) List<String> listId,
             @RequestParam(value = "status", required = false) File.StatusEnum status){
-
+        var queryEncoded = URLEncoder.encode(queryName, "UTF-8");
         var statusFilter = fileStatus != null? fileStatus : File.StatusEnum.UNDEFINED;
         if (status != null && status != File.StatusEnum.UNDEFINED
             && listId != null && listId.size() > 0) {
             DatabaseQueryResult result = fileService.updateStatusMulti(status, listId);
             System.out.println(result.getDescription());
         }
-        return "redirect:/file?queryName=" + queryName + "&fileStatus=" + statusFilter;
+        return "redirect:/file?queryName=" + queryEncoded + "&fileStatus=" + statusFilter;
     }
 }
