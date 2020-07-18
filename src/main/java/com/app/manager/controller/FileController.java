@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -89,7 +91,9 @@ public class FileController {
             @RequestParam(value = "fileStatus", required = false) File.StatusEnum fileStatus,
             @RequestParam(value = "checkedItem", required = false) List<String> listId,
             @RequestParam(value = "status", required = false) File.StatusEnum status){
-        var queryEncoded = URLEncoder.encode(queryName, "UTF-8");
+
+        var queryEncoded = URLEncoder.encode(queryName, StandardCharsets.UTF_8);
+
         var statusFilter = fileStatus != null? fileStatus : File.StatusEnum.UNDEFINED;
         if (status != null && status != File.StatusEnum.UNDEFINED
             && listId != null && listId.size() > 0) {
