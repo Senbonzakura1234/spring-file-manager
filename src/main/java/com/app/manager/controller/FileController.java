@@ -85,8 +85,8 @@ public class FileController {
 
     @PostMapping({"/file", "/file/index"})
     public String updateStatus(
-            @RequestParam(value = "query", required = false, defaultValue = "") String queryName,
-            @RequestParam(value = "statusFilter", required = false) File.StatusEnum fileStatus,
+            @RequestParam(value = "queryName", required = false, defaultValue = "") String queryName,
+            @RequestParam(value = "fileStatus", required = false) File.StatusEnum fileStatus,
             @RequestParam(value = "checkedItem", required = false) List<String> listId,
             @RequestParam(value = "status", required = false) File.StatusEnum status){
 
