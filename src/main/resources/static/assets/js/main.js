@@ -57,6 +57,9 @@
 
 
 $(function(){
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
     setTimeout(function(){
             $('.loader').fadeOut(1000);
     }, 1000);

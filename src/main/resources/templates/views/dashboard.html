@@ -11,6 +11,59 @@
 <main layout:fragment="content" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h1 class="h2">Dashboard</h1>
+        <div class="w-100 mb-4 pb-4 border-bottom">
+            <p>Project progress</p>
+            <div class="progress" style="height: 20px">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar"
+                     th:style="'width: '+ ${donePercent} + '%'" th:attr="aria-valuenow=${donePercent}"
+                     data-toggle="tooltip" data-placement="bottom" th:title="'Done (' + ${donePercent} +'%)'"
+                     aria-valuemin="0" aria-valuemax="100">
+                        <span th:if="${donePercent >= 9}">Done (<span th:text="${donePercent}"></span>%)</span>
+                </div>
+
+                <div class="progress-bar bg-dark progress-bar-striped progress-bar-animated" role="progressbar"
+                     th:style="'width: '+ ${uploadingPercent} + '%'" th:attr="aria-valuenow=${uploadingPercent}"
+                     data-toggle="tooltip" data-placement="bottom" th:title="'Uploading (' + ${uploadingPercent} +'%)'"
+                     aria-valuemin="0" aria-valuemax="100">
+                        <span th:if="${uploadingPercent >= 9}">Uploading (<span th:text="${uploadingPercent}"></span>%)</span>
+                </div>
+
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                     th:style="'width: '+ ${unzippedPercent} + '%'" th:attr="aria-valuenow=${unzippedPercent}"
+                     data-toggle="tooltip" data-placement="bottom" th:title="'Unzipped (' + ${unzippedPercent} +'%)'"
+                     aria-valuemin="0" aria-valuemax="100">
+                        <span th:if="${unzippedPercent >= 9}">Unzipped (<span th:text="${unzippedPercent}"></span>%)</span>
+                </div>
+
+                <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar"
+                     th:style="'width: '+ ${unzippingPercent} + '%'" th:attr="aria-valuenow=${unzippingPercent}"
+                     data-toggle="tooltip" data-placement="bottom" th:title="'Unzipping (' + ${unzippingPercent} +'%)'"
+                     aria-valuemin="0" aria-valuemax="100">
+                        <span th:if="${unzippingPercent >= 9}">Unzipping (<span th:text="${unzippingPercent}"></span>%)</span>
+                </div>
+
+                <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar"
+                     th:style="'width: '+ ${downloadedPercent} + '%'" th:attr="aria-valuenow=${downloadedPercent}"
+                     data-toggle="tooltip" data-placement="bottom" th:title="'Downloaded (' + ${downloadedPercent} +'%)'"
+                     aria-valuemin="0" aria-valuemax="100">
+                        <span th:if="${downloadedPercent >= 9}">Downloaded (<span th:text="${downloadedPercent}"></span>%)</span>
+                </div>
+
+                <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar"
+                     th:style="'width: '+ ${downloadingPercent} + '%'" th:attr="aria-valuenow=${downloadingPercent}"
+                     data-toggle="tooltip" data-placement="bottom" th:title="'Downloading (' + ${downloadingPercent} +'%)'"
+                     aria-valuemin="0" aria-valuemax="100">
+                        <span th:if="${downloadingPercent >= 9}">Downloading (<span th:text="${downloadingPercent}"></span>%)</span>
+                </div>
+
+                <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar"
+                     th:style="'width: '+ ${pendingPercent} + '%'" th:attr="aria-valuenow=${pendingPercent}"
+                     data-toggle="tooltip" data-placement="bottom" th:title="'Pending (' + ${pendingPercent} +'%)'"
+                     aria-valuemin="0" aria-valuemax="100">
+                        <span th:if="${pendingPercent >= 9}">Pending (<span th:text="${pendingPercent}"></span>%)</span>
+                </div>
+            </div>
+        </div>
         <div class="w-100">
             <p>Please set status following this process below</p>
             <p class="mb-0">
@@ -22,11 +75,15 @@
                           class="text-secondary">
 
                     </span>
-                    <span th:class="${'badge mb-0 p-2 mb-1 '} +
-                            ${item.value != 'DOWNLOADING' &&
-                                item.value != 'UNZIPPING' &&
-                                item.value != 'UPLOADING'?
-                                'badge-dark' : 'badge-secondary'}"
+                    <span th:class="${'badge mb-0 p-2 mb-1 text-white '} +
+                            ${item.value == 'DONE'? 'bg-success ' : ' '} +
+                            ${item.value == 'UPLOADING'? 'bg-dark ' : ' '} +
+                            ${item.value == 'UNZIPPED'? 'bg-primary ' : ' '} +
+                            ${item.value == 'UNZIPPING'? 'bg-danger ' : ' '} +
+                            ${item.value == 'DOWNLOADED'? 'bg-info ' : ' '} +
+                            ${item.value == 'DOWNLOADING'? 'bg-warning ' : ' '} +
+                            ${item.value == 'PENDING'? 'bg-secondary ' : ' '}
+                            "
                           th:text="${item.name}">
                     </span>
                 </span>
@@ -39,7 +96,7 @@
             <table class="table table-striped table-sm">
                 <thead>
                 <tr>
-                    <th>Pending (<span th:text="${pendingCount}"></span>)</th>
+                    <th>Pending | <span th:text="${pendingCount} + ' file(s)' "></span> </th>
                     <th class="text-right" th:if="${pendingCount > 0}">
                         <a th:href="@{/file(fileStatus = ${pendingParam})}"
                             class="text-secondary">
@@ -71,7 +128,7 @@
             <table class="table table-striped table-sm">
                 <thead>
                 <tr>
-                    <th>Downloading (<span th:text="${downloadingCount}"></span>)</th>
+                    <th>Downloading | <span th:text="${downloadingCount} + ' file(s)' "></span> </th>
                     <th class="text-right" th:if="${downloadingCount > 0}">
                         <a th:href="@{/file(fileStatus = ${downloadingParam})}"
                             class="text-secondary">
@@ -102,7 +159,7 @@
             <table class="table table-striped table-sm">
                 <thead>
                 <tr>
-                    <th>Unzipping (<span th:text="${unzippingCount}"></span>)</th>
+                    <th>Unzipping | <span th:text="${unzippingCount} + ' file(s)' "></span> </th>
                     <th class="text-right" th:if="${unzippingCount > 0}">
                         <a th:href="@{/file(fileStatus = ${unzippingParam})}"
                             class="text-secondary">
@@ -134,7 +191,7 @@
             <table class="table table-striped table-sm">
                 <thead>
                 <tr>
-                    <th>Uploading (<span th:text="${uploadingCount}"></span>)</th>
+                    <th>Uploading | <span th:text="${uploadingCount} + ' file(s)' "></span> </th>
                     <th class="text-right" th:if="${uploadingCount > 0}">
                         <a th:href="@{/file(fileStatus = ${uploadingParam})}"
                            class="text-secondary">
