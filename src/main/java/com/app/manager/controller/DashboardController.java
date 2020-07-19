@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Arrays;
+
 @Controller
 public class DashboardController {
 
@@ -76,22 +78,33 @@ public class DashboardController {
         model.addAttribute("doneCount", doneCount);
         model.addAttribute("totalCount", totalCount);
 
-        model.addAttribute("pendingPercent",
-                HelperMethod.roundUpIntDiv(pendingCount*100, totalCount));
-        model.addAttribute("downloadingPercent",
-                HelperMethod.roundUpIntDiv(downloadingCount*100, totalCount));
-        model.addAttribute("downloadedPercent",
-                HelperMethod.roundUpIntDiv(downloadedCount*100, totalCount));
-        model.addAttribute("unzippingPercent",
-                HelperMethod.roundUpIntDiv(unzippingCount*100, totalCount));
-        model.addAttribute("unzippedPercent",
-                HelperMethod.roundUpIntDiv(unzippedCount*100, totalCount));
-        model.addAttribute("uploadingPercent",
-                HelperMethod.roundUpIntDiv(uploadingCount*100, totalCount));
-        model.addAttribute("donePercent",
-                HelperMethod.roundUpIntDiv(doneCount*100, totalCount));
+        var pendingPercent = HelperMethod.roundUpIntDiv(pendingCount*100, totalCount);
+        var downloadingPercent = HelperMethod.roundUpIntDiv(downloadingCount*100, totalCount);
+        var downloadedPercent = HelperMethod.roundUpIntDiv(downloadedCount*100, totalCount);
+        var unzippingPercent = HelperMethod.roundUpIntDiv(unzippingCount*100, totalCount);
+        var unzippedPercent = HelperMethod.roundUpIntDiv(unzippedCount*100, totalCount);
+        var uploadingPercent = HelperMethod.roundUpIntDiv(uploadingCount*100, totalCount);
+        var donePercent = HelperMethod.roundUpIntDiv(doneCount*100, totalCount);
+
+
+        long[] percentList = {pendingPercent, downloadingPercent, downloadedPercent,
+                unzippingPercent, unzippedPercent, uploadingPercent, donePercent};
+        long max = Arrays.stream(percentList).max().getAsLong();
+        long replace = 100;
+        for (long item: percentList) {
+            if(item != max) replace -= item;
+        }
+
+        model.addAttribute("pendingPercent", pendingPercent != max? pendingPercent : replace);
+        model.addAttribute("downloadingPercent", downloadingPercent != max? downloadingPercent : replace);
+        model.addAttribute("downloadedPercent", downloadedPercent != max? downloadedPercent : replace);
+        model.addAttribute("unzippingPercent", unzippingPercent != max? unzippingPercent : replace);
+        model.addAttribute("unzippedPercent", unzippedPercent != max? unzippedPercent : replace);
+        model.addAttribute("uploadingPercent", uploadingPercent != max? uploadingPercent : replace);
+        model.addAttribute("donePercent", donePercent != max? donePercent : replace);
         
-        
+
+
         return "views/dashboard";
     }
 }

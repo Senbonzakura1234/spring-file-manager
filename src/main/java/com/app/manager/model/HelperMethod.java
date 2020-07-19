@@ -1,6 +1,5 @@
 package com.app.manager.model;
 
-import java.time.Instant;
 import java.util.Date;
 
 import static java.lang.Math.abs;
@@ -20,4 +19,5 @@ public class HelperMethod {
         int sign = (num > 0 ? 1 : -1) * (divisor > 0 ? 1 : -1);
         return sign * (abs(num) + abs(divisor) - 1) / abs(divisor);
     }
+
 }
