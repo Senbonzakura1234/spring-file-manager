@@ -8,11 +8,32 @@
                     Dashboard <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/file}">
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#collapseNav" data-toggle="collapse"
+                    role="button" aria-controls="collapseNav" aria-expanded="true">
                     <span data-feather="file-text"></span>
                     File
+                    <span class="rightIcon" data-feather="arrow-down-circle"></span>
                 </a>
+                <div class="collapse show" id="collapseNav">
+                    <a class="nav-link pl-4"
+                       th:each="item : ${statusList}"
+                       th:href="@{/file(fileStatus = ${item.value})}">
+                        <span data-feather="corner-down-right"></span>
+                        <span th:text="${item.name}"
+                              th:class="
+                                ${item.value == 'SKIPPED'? 'text-muted ' : ' '} +
+                                ${item.value == 'DONE'? 'text-success ' : ' '} +
+                                ${item.value == 'UPLOADING'? 'text-dark ' : ' '} +
+                                ${item.value == 'UNZIPPED'? 'text-primary ' : ' '} +
+                                ${item.value == 'UNZIPPING'? 'text-danger ' : ' '} +
+                                ${item.value == 'DOWNLOADED'? 'text-info ' : ' '} +
+                                ${item.value == 'DOWNLOADING'? 'text-warning ' : ' '} +
+                                ${item.value == 'PENDING'? 'text-secondary ' : ' '}">
+
+                        </span>
+                    </a>
+                </div>
             </li>
             <li class="nav-item">
                 <form class="d-none" id="logout-form"

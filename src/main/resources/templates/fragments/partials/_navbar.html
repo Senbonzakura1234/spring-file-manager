@@ -19,7 +19,19 @@
                 custom-select custom-select-sm" name="fileStatus">
                 <option th:each="option : ${statusList}"
                         th:value="${option.value}"
-                        th:text="${option.name}" th:selected="${option.selected}"></option>
+                        th:text="${option.name}"
+                        th:selected="${option.selected}"
+                        th:class="
+                                ${option.value == 'SKIPPED'? 'text-muted ' : ' '} +
+                                ${option.value == 'DONE'? 'text-success ' : ' '} +
+                                ${option.value == 'UPLOADING'? 'text-dark ' : ' '} +
+                                ${option.value == 'UNZIPPED'? 'text-primary ' : ' '} +
+                                ${option.value == 'UNZIPPING'? 'text-danger ' : ' '} +
+                                ${option.value == 'DOWNLOADED'? 'text-info ' : ' '} +
+                                ${option.value == 'DOWNLOADING'? 'text-warning ' : ' '} +
+                                ${option.value == 'PENDING'? 'text-secondary ' : ' '}">
+
+                </option>
             </select>
         </div>
     </div>

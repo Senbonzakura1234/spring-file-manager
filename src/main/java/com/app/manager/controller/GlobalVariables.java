@@ -16,9 +16,8 @@ public class GlobalVariables {
         List<SelectOption> statusList = new ArrayList<>();
         for (File.StatusEnum item: File.StatusEnum.values()
         ) {
-            statusList.add(new SelectOption(item.name(),
-                    item == File.StatusEnum.UNDEFINED? "-select status-": item.name(),
-                    item == File.StatusEnum.UNDEFINED));
+            statusList.add(new SelectOption(item.name(), item.name(),
+                    item == File.StatusEnum.ALL));
         }
         model.addAttribute("statusList", statusList);
         model.addAttribute("msg", "File Manager");

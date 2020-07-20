@@ -10,7 +10,7 @@ public class SelectOption {
 
     public SelectOption(String value, String name, boolean selected) {
         this.value = value;
-        this.name = name.toLowerCase();
+        this.name = lowerCaseExceptFirst(name);
         this.selected = selected;
     }
 
@@ -36,5 +36,11 @@ public class SelectOption {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    String lowerCaseExceptFirst(String input){
+        if(input == null || input.isEmpty()) return "";
+        var lowerCase = input.toLowerCase();
+        return lowerCase.substring(0, 1).toUpperCase() + lowerCase.substring(1);
     }
 }

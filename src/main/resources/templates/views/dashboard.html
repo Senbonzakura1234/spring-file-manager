@@ -68,7 +68,7 @@
             <p>Please set status following this process below</p>
             <p class="mb-0">
                 <span th:each="item : ${statusList}"
-                      th:if="${item.value != 'UNDEFINED' && item.value != 'SKIPPED'}">
+                      th:if="${item.value != 'ALL' && item.value != 'SKIPPED'}">
 
                     <span data-feather="arrow-right"
                           th:if="${item.value != 'PENDING'}"

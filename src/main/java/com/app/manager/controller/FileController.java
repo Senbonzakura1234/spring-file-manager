@@ -44,15 +44,14 @@ public class FileController {
         for (File.StatusEnum item: File.StatusEnum.values()
         ) {
             var selectedNotnull = fileStatus != null;
-            statusList.add(new SelectOption(item.name(),
-                    item == File.StatusEnum.UNDEFINED? "-select status-": item.name(),
+            statusList.add(new SelectOption(item.name(), item.name(),
                     selectedNotnull && item == fileStatus));
         }
         model.addAttribute("statusList", statusList);
         model.addAttribute("queryName", queryName);
 
 
-        var status = fileStatus != null? fileStatus : File.StatusEnum.UNDEFINED;
+        var status = fileStatus != null? fileStatus : File.StatusEnum.ALL;
         Sort sortable = sort.equals("DESC")?
                 Sort.by(sortBy).descending():
                 Sort.by(sortBy).ascending();
@@ -101,8 +100,8 @@ public class FileController {
 
         var queryEncoded = URLEncoder.encode(queryName, StandardCharsets.UTF_8);
 
-        var statusFilter = fileStatus != null? fileStatus : File.StatusEnum.UNDEFINED;
-        if (status != null && status != File.StatusEnum.UNDEFINED
+        var statusFilter = fileStatus != null? fileStatus : File.StatusEnum.ALL;
+        if (status != null && status != File.StatusEnum.ALL
             && listId != null && listId.size() > 0) {
             DatabaseQueryResult result = fileService.updateStatusMulti(status, listId);
             System.out.println(result.getDescription());

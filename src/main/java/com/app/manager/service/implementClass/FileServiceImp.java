@@ -26,13 +26,13 @@ public class FileServiceImp implements FileService {
         try {
             Page<File> files;
             if(queryName != null && !queryName.isEmpty()){
-                if(status != null && status != File.StatusEnum.UNDEFINED){
+                if(status != null && status != File.StatusEnum.ALL){
                     files = fileRepository.findByNameContainsAndStatus(queryName, status, pageable);
                 }else {
                     files = fileRepository.findByNameContains(queryName, pageable);
                 }
             }else {
-                if(status != null && status != File.StatusEnum.UNDEFINED){
+                if(status != null && status != File.StatusEnum.ALL){
                     files = fileRepository.findByStatus(status, pageable);
                 }else {
                     files = fileRepository.findBy(pageable);
@@ -79,7 +79,7 @@ public class FileServiceImp implements FileService {
 
     @Override
     public DatabaseQueryResult updateStatus(File.StatusEnum status, String id) {
-        if (status != null && status != File.StatusEnum.UNDEFINED
+        if (status != null && status != File.StatusEnum.ALL
                 && id != null && !id.isEmpty()) {
             try {
                 Optional<File> file = fileRepository.findById(id);
@@ -105,7 +105,7 @@ public class FileServiceImp implements FileService {
     @Override
     public DatabaseQueryResult updateStatusMulti(File.StatusEnum status, List<String> listId) {
         try {
-            if(status != null && status != File.StatusEnum.UNDEFINED
+            if(status != null && status != File.StatusEnum.ALL
                     && listId != null && listId.size() > 0){
                 List<File> files = fileRepository.findByIdIn(listId);
                 for (File file: files

@@ -41,7 +41,7 @@ public class File {
     }
 
     public enum StatusEnum {
-        UNDEFINED(0),
+        ALL(0),
         PENDING(1),
         DOWNLOADING(2),
         DOWNLOADED(3),

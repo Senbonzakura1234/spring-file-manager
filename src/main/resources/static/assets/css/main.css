@@ -59,7 +59,7 @@ body {
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .sidebar {
         top: 5rem;
     }
@@ -163,6 +163,10 @@ td {
     .tableNoItem {
         height: 210px;
     }
+    .table-overflow{
+        height: 350px;
+        overflow-y: auto;
+    }
 }
 
 .jump-page-input{
@@ -195,4 +199,12 @@ td {
     border-left: 0;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+}
+.nav-link{
+    position: relative;
+}
+.rightIcon{
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
 }
