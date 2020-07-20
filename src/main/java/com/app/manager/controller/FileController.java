@@ -36,7 +36,9 @@ public class FileController {
         @RequestParam(value = "fileStatus", required = false) File.StatusEnum fileStatus,
         @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
         @RequestParam(name = "size", required = false, defaultValue = "20") Integer size,
-        @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
+        @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort,
+        @RequestParam(name = "sortBy", required = false, defaultValue = "indexNumber") String sortBy
+    ) {
 
         List<SelectOption> statusList = new ArrayList<>();
         for (File.StatusEnum item: File.StatusEnum.values()
@@ -52,8 +54,8 @@ public class FileController {
 
         var status = fileStatus != null? fileStatus : File.StatusEnum.UNDEFINED;
         Sort sortable = sort.equals("DESC")?
-                Sort.by("indexNumber").descending():
-                Sort.by("indexNumber").ascending();
+                Sort.by(sortBy).descending():
+                Sort.by(sortBy).ascending();
 
         Pageable pageable = PageRequest.of(page <= 0? 0: page - 1, size, sortable);
         Page<ModelFile> files = fileService.getAll(queryName, status, pageable);
@@ -82,6 +84,9 @@ public class FileController {
         model.addAttribute("files", files);
         model.addAttribute("query", queryName);
         model.addAttribute("status", status);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sort", sort);
+        model.addAttribute("sortInverse", sort.equals("ASC") ? "DESC" : "ASC");
         return "views/files/index";
     }
 
@@ -90,7 +95,9 @@ public class FileController {
             @RequestParam(value = "queryName", required = false, defaultValue = "") String queryName,
             @RequestParam(value = "fileStatus", required = false) File.StatusEnum fileStatus,
             @RequestParam(value = "checkedItem", required = false) List<String> listId,
-            @RequestParam(value = "status", required = false) File.StatusEnum status){
+            @RequestParam(value = "status", required = false) File.StatusEnum status,
+            @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort,
+            @RequestParam(name = "sortBy", required = false, defaultValue = "indexNumber") String sortBy){
 
         var queryEncoded = URLEncoder.encode(queryName, StandardCharsets.UTF_8);
 
@@ -100,6 +107,8 @@ public class FileController {
             DatabaseQueryResult result = fileService.updateStatusMulti(status, listId);
             System.out.println(result.getDescription());
         }
-        return "redirect:/file?queryName=" + queryEncoded + "&fileStatus=" + statusFilter;
+        return "redirect:/file?queryName=" + queryEncoded +
+                "&fileStatus=" + statusFilter +
+                "&sort=" + sort + "&sortBy=" + sortBy;
     }
 }

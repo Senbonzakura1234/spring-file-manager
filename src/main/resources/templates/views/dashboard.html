@@ -75,17 +75,27 @@
                           class="text-secondary">
 
                     </span>
-                    <span th:class="${'badge mb-0 p-2 mb-1 text-white '} +
-                            ${item.value == 'DONE'? 'bg-success ' : ' '} +
-                            ${item.value == 'UPLOADING'? 'bg-dark ' : ' '} +
-                            ${item.value == 'UNZIPPED'? 'bg-primary ' : ' '} +
-                            ${item.value == 'UNZIPPING'? 'bg-danger ' : ' '} +
-                            ${item.value == 'DOWNLOADED'? 'bg-info ' : ' '} +
-                            ${item.value == 'DOWNLOADING'? 'bg-warning ' : ' '} +
-                            ${item.value == 'PENDING'? 'bg-secondary ' : ' '}
-                            "
-                          th:text="${item.name}">
-                    </span>
+                    <a th:href="@{/file(fileStatus = ${item.value})}"
+                        th:class="${'btn mb-0 mb-1 btn-sm '} +
+                        ${item.value == 'DONE'? 'btn-success ' : ' '} +
+                        ${item.value == 'UPLOADING'? 'btn-dark ' : ' '} +
+                        ${item.value == 'UNZIPPED'? 'btn-primary ' : ' '} +
+                        ${item.value == 'UNZIPPING'? 'btn-danger ' : ' '} +
+                        ${item.value == 'DOWNLOADED'? 'btn-info ' : ' '} +
+                        ${item.value == 'DOWNLOADING'? 'btn-warning ' : ' '} +
+                        ${item.value == 'PENDING'? 'btn-secondary ' : ' '}">
+                            <th:block th:text="${item.name}">
+                            </th:block>
+                            <span class="badge badge-light"
+                                th:text="${item.value == 'DONE'? doneCount : ''} +
+                                ${item.value == 'UPLOADING'? uploadingCount : ''} +
+                                ${item.value == 'UNZIPPED'? unzippedCount : ''} +
+                                ${item.value == 'UNZIPPING'? unzippingCount : ''} +
+                                ${item.value == 'DOWNLOADED'? downloadedCount : ''} +
+                                ${item.value == 'DOWNLOADING'? downloadingCount : ''} +
+                                ${item.value == 'PENDING'? pendingCount : ''}">
+                            </span>
+                    </a>
                 </span>
             </p>
         </div>

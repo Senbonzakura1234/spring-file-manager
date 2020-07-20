@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html layout:decorate="~{fragments/layouts/error_layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block layout:fragment="stylesheet_custom">
+        <link th:href="@{/assets/css/authen.css}" rel="stylesheet">
+    </th:block>
+</head>
+<body style="align-items: normal !important;">
+<th:block layout:fragment="content">
+    <div class="container-fluid">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container-fluid">
+                <h1 class="display-4">
+                    <span th:text="${status}"></span> -
+                    <span th:text="${error}"></span>
+                </h1>
+                <a class="btn btn-dark mt-4" th:href="@{/}">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

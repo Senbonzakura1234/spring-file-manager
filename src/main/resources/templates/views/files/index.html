@@ -23,6 +23,8 @@
     <div class="w-100 border-bottom py-2">
         <div class="card w-100 border-0">
             <form class="card-body p-0">
+                <input name="sort" th:value="${sort}" type="hidden">
+                <input name="sortby" th:value="${sortBy}" type="hidden">
                 <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend leftItem">
                         <select aria-label="status" class="custom-select py-0" name="fileStatus">
@@ -43,6 +45,8 @@
     <form class="table-responsive" th:action="@{/file} " method="post">
         <input type="hidden" name="queryName" th:value="${query}">
         <input type="hidden" name="fileStatus" th:value="${status}">
+        <input name="sort" th:value="${sort}" type="hidden">
+        <input name="sortby" th:value="${sortBy}" type="hidden">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
             <div class="btn-toolbar mb-2 mb-md-0 px-2">
                 <div class="form-check form-check-inline">
@@ -78,10 +82,29 @@
                     <input class="form-check-input checkboxFileList selectAll"
                            type="checkbox" name="ignore check"/>
                 </th>
-                <th>#</th>
-                <th>File</th>
-                <th>Status</th>
-                <th class="d-none d-md-table-cell">Last Update</th>
+                <th>
+                    <a th:href="@{/file(queryName = ${query},
+                        fileStatus = ${status},
+                        sort = ${sortInverse})}">#</a>
+                </th>
+                <th>
+                    <a th:href="@{/file(queryName = ${query},
+                        fileStatus = ${status},
+                        sort = ${sortInverse},
+                        sortby = ${'name'})}">File</a>
+                </th>
+                <th>
+                    <a th:href="@{/file(queryName = ${query},
+                        fileStatus = ${status},
+                        sort = ${sortInverse},
+                        sortby = ${'status'})}">Status</a>
+                </th>
+                <th class="d-none d-md-table-cell">
+                    <a th:href="@{/file(queryName = ${query},
+                        fileStatus = ${status},
+                        sort = ${sortInverse},
+                        sortby = ${'updatedat'})}">Last Update</a>
+                </th>
                 <th class="text-center">Copy</th>
             </tr>
             </thead>
@@ -114,14 +137,16 @@
             <li class="page-item" th:if="${currentPage > 3}">
                 <a class="page-link" aria-label="Back To First"
                    th:href="@{/file(page=1,
-                    queryName = ${query}, fileStatus = ${status})}">
+                    queryName = ${query}, fileStatus = ${status},
+                     sort = ${sort}, sortby = ${sortBy})}">
                     <span data-feather="chevrons-left"></span>
                 </a>
             </li>
             <li class="page-item" th:if="${files.hasPrevious()}">
                 <a class="page-link" aria-label="Previous"
                    th:href="@{/file(page=${currentPage - 1},
-                    queryName = ${query}, fileStatus = ${status})}">
+                    queryName = ${query}, fileStatus = ${status},
+                     sort = ${sort}, sortby = ${sortBy})}">
                     <span data-feather="chevron-left"></span>
                 </a>
             </li>
@@ -142,7 +167,8 @@
                         th:text="${pageNumber}"
                         class="page-link"
                         th:href="@{/file(page=${pageNumber},
-                         queryName = ${query}, fileStatus = ${status})}">
+                        queryName = ${query}, fileStatus = ${status},
+                        sort = ${sort}, sortby = ${sortBy})}">
                 </a>
             </li>
 
@@ -156,15 +182,17 @@
 
             <li class="page-item" th:if="${files.hasNext()}">
                 <a class="page-link" aria-label="Next"
-                   th:href="@{/file(page=${currentPage + 1},
-                   queryName = ${query}, fileStatus = ${status})}">
+                    th:href="@{/file(page=${currentPage + 1},
+                    queryName = ${query}, fileStatus = ${status},
+                    sort = ${sort}, sortby = ${sortBy})}">
                     <span data-feather="chevron-right"></span>
                 </a>
             </li>
             <li class="page-item" th:if="${currentPage < totalPages - 3}">
                 <a class="page-link" aria-label="Go to last"
-                   th:href="@{/file(page=${totalPages},
-                    queryName = ${query}, fileStatus = ${status})}">
+                    th:href="@{/file(page=${totalPages},
+                    queryName = ${query}, fileStatus = ${status},
+                    sort = ${sort}, sortby = ${sortBy})}">
                     <span data-feather="chevrons-right"></span>
                 </a>
             </li>
@@ -177,6 +205,9 @@
     <form th:action="@{/file}" class="form-inline">
         <input name="queryName" th:value="${query}" type="hidden">
         <input name="fileStatus" th:value="${status}" type="hidden">
+        <input name="sort" th:value="${sort}" type="hidden">
+        <input name="sortby" th:value="${sortBy}" type="hidden">
+
         <div class="input-group w-100">
             <input th:placeholder="${'from 1 to ' + totalPages}"
                    type="text" class="form-control jump-page-input" id="pageJump" name="page">
