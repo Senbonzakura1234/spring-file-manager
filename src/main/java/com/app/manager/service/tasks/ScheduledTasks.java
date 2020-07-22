@@ -12,7 +12,7 @@ import java.net.URL;
 public class ScheduledTasks {
     private static final Logger logger = LoggerFactory.getLogger(ScheduledTasks.class);
 //    1800000
-    @Scheduled(cron = "29,59 7-23 ? * * *")
+    @Scheduled(cron = "0 29,59 7-23 * * *")
     public void pingTo() {
         var url = "https://senbonzakura-ping-app.herokuapp.com";
         try {
