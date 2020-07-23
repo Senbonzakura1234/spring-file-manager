@@ -57,11 +57,13 @@
 
 
 $(function(){
+    console.log($('input[name=\'_csrf\']').val());
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });
     setTimeout(function(){
             $('.loader').fadeOut(1000);
     }, 1000);
+    // noinspection JSUnresolvedFunction
     new ClipboardJS(`.copyBtns`);
 });

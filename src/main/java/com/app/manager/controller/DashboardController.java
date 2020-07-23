@@ -102,8 +102,8 @@ public class DashboardController {
         model.addAttribute("unzippedPercent", unzippedPercent != max? unzippedPercent : replace);
         model.addAttribute("uploadingPercent", uploadingPercent != max? uploadingPercent : replace);
         model.addAttribute("donePercent", donePercent != max? donePercent : replace);
-        
 
+        HelperMethod.pingTo("https://senbonzakura-ping-app.herokuapp.com");
 
         return "views/dashboard";
     }

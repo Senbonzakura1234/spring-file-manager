@@ -208,3 +208,6 @@ td {
     top: 0.5rem;
     right: 0.5rem;
 }
+.ui-autocomplete{
+    z-index: 100000;
+}

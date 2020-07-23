@@ -23,6 +23,7 @@
     <div class="w-100 border-bottom py-2">
         <div class="card w-100 border-0">
             <form class="card-body p-0">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <input name="sort" th:value="${sort}" type="hidden">
                 <input name="sortby" th:value="${sortBy}" type="hidden">
                 <div class="input-group mb-2 mr-sm-2">
@@ -44,10 +45,14 @@
                             </option>
                         </select>
                     </div>
-                    <input class="form-control py-0 middleItem" name="queryName" th:value="${queryName}"
+                    <input class="form-control py-0 middleItem" id="queryName"
+                           name="queryName" th:value="${queryName}"
                            type="text" placeholder="Search" aria-label="Search">
                     <div class="input-group-append rightItem">
-                        <button class="btn btn-dark" type="submit">Apply Filter</button>
+                        <button class="btn btn-dark" type="submit">
+                            <span class="d-none d-md-block">Apply Filter</span>
+                            <span class="d-md-none" data-feather="search"></span>
+                        </button>
                     </div>
                 </div>
             </form>

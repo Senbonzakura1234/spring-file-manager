@@ -22,6 +22,30 @@ public class FileServiceImp implements FileService {
     FileRepository fileRepository;
 
     @Override
+    public Page<String> getAllName(String queryName, File.StatusEnum status, Pageable pageable) {
+        try {
+            Page<File> files;
+            if(queryName != null && !queryName.isEmpty()){
+                if(status != null && status != File.StatusEnum.ALL){
+                    files = fileRepository.findByNameContainsAndStatus(queryName, status, pageable);
+                }else {
+                    files = fileRepository.findByNameContains(queryName, pageable);
+                }
+            }else {
+                if(status != null && status != File.StatusEnum.ALL){
+                    files = fileRepository.findByStatus(status, pageable);
+                }else {
+                    files = fileRepository.findBy(pageable);
+                }
+            }
+            return files.map(File::getName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Page.empty();
+        }
+    }
+
+    @Override
     public Page<ModelFile> getAll(String queryName, File.StatusEnum status, Pageable pageable) {
         try {
             Page<File> files;

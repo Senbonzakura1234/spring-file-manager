@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html layout:decorate="~{fragments/layouts/authen_layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block layout:fragment="stylesheet_custom">
+        <link th:href="@{/assets/css/authen.css}" rel="stylesheet">
+    </th:block>
+</head>
+<body class="text-center">
+<th:block layout:fragment="content">
+    <form class="form-signin" id="searchFormApi" method="post" action="#" novalidate>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label for="fileName" class="sr-only">FileName</label>
+        <input name="fileName" type="text" id="fileName" class="form-control" placeholder="FileName" autofocus>
+        <button class="btn btn-lg btn-primary btn-block mt-4" id="submitBtn" type="submit">Search</button>
+    </form>
+</th:block>
+</body>
+</html>

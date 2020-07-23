@@ -1,12 +1,15 @@
 package com.app.manager.model.midware_model;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class SearchModel {
-    @NotBlank
+    @NotNull
     private String fileName;
 
-    public SearchModel(@NotBlank String fileName) {
+    public SearchModel() {
+    }
+
+    public SearchModel(@NotNull String fileName) {
         this.fileName = fileName;
     }
 
