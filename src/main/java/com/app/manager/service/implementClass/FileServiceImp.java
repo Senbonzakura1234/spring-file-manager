@@ -12,14 +12,80 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class FileServiceImp implements FileService {
     @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
     @Autowired
     FileRepository fileRepository;
+    private static final BigDecimal KiloBytesToBytes = new BigDecimal(1000);
+    private static final BigDecimal MegaBytesToBytes = KiloBytesToBytes.multiply(KiloBytesToBytes);
+    private static final BigDecimal GigaBytesToBytes = MegaBytesToBytes.multiply(KiloBytesToBytes);
+
+    @Override
+    public void getFileCapacity() {
+        try {
+            List<File> files = fileRepository.findAll();
+
+            for (File item: files
+            ) {
+                try {
+                    var oldName = item.getName();
+                    Matcher m = Pattern.compile("\\(([^)]+)\\)").matcher(oldName);
+                    while(m.find()) {
+                        String capacity = m.group(1);
+                        BigDecimal capacityDouble = BigDecimal.valueOf(Double.parseDouble(
+                                capacity.replaceAll("[^\\d.]", "")));
+
+                        if(capacity.contains(" B")){
+                            item.setCapacity(capacityDouble);
+                        } else if(capacity.contains(" kB")){
+                            item.setCapacity(capacityDouble.multiply(KiloBytesToBytes));
+                        } else if(capacity.contains(" MB")){
+                            item.setCapacity(capacityDouble.multiply(MegaBytesToBytes));
+                        } else if(capacity.contains(" GB")){
+                            item.setCapacity(capacityDouble.multiply(GigaBytesToBytes));
+                        } else {
+                            continue;
+                        }
+                        fileRepository.save(item);
+                        System.out.println(item.getName() + ": " + item.getCapacity());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println(e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void removeSlash() {
+        try {
+            List<File> files = fileRepository.findAll();
+            for (File item: files
+                 ) {
+                var oldName = item.getName();
+                if(oldName != null && !oldName.isEmpty()){
+                    var replace  = oldName.replaceAll("/"," ");
+                    item.setName(replace);
+                    fileRepository.save(item);
+                }
+                System.out.println(item.getName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
 
     @Override
     public Page<String> getAllName(String queryName, File.StatusEnum status, Pageable pageable) {
@@ -63,7 +129,7 @@ public class FileServiceImp implements FileService {
                 }
             }
             return  files.map(file -> new ModelFile(file.getId(), file.getIndexNumber(),
-                    file.getName(), file.getStatus(),
+                    file.getName(), file.getCapacity(), file.getStatus(),
                     HelperMethod.getDateString(file.getCreatedat()),
                     HelperMethod.getDateString(file.getUpdatedat())));
         } catch (Exception e) {

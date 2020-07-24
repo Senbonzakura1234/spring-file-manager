@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FileService {
+    void getFileCapacity();
+    void removeSlash();
     Page<String> getAllName(String queryName, File.StatusEnum status, Pageable pageable);
     Page<ModelFile> getAll(String queryName, File.StatusEnum status, Pageable pageable);
     DatabaseQueryResult save(ModelFile modelFile);

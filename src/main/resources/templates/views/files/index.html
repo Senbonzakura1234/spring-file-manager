@@ -128,6 +128,12 @@
                         <a class="text-white" th:href="@{/file(queryName = ${query},
                         fileStatus = ${status},
                         sort = ${sortInverse},
+                        sortby = ${'capacity'})}">Size</a>
+                    </th>
+                    <th>
+                        <a class="text-white" th:href="@{/file(queryName = ${query},
+                        fileStatus = ${status},
+                        sort = ${sortInverse},
                         sortby = ${'status'})}">Status</a>
                     </th>
                     <th class="d-none d-md-table-cell">
@@ -149,6 +155,7 @@
                     </td>
                     <td class="text-center" th:text="${file.indexNumber}"></td>
                     <td th:text="${file.name}"></td>
+                    <td th:text="${file.capacityString}"></td>
                     <td>
                         <span th:class="${'badge badge-sm p-2 '} +
                             ${file.status.toString() == 'SKIPPED'? 'badge-light ' : ' '} +
