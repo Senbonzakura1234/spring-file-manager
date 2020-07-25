@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html layout:decorate="~{fragments/layouts/authen_layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block layout:fragment="stylesheet_custom">
+        <link th:href="@{/assets/css/authen.css}" rel="stylesheet">
+    </th:block>
+</head>
+<body class="text-center">
+<th:block layout:fragment="content">
+    <form class="form-authen" id="register-form" th:action="@{/register}" method="post"
+          th:object="${registerModel}" action="#" novalidate>
+        <img class="mb-4" th:src="@{/assets/img/bootstrap-solid.svg}" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">File Manager</h1>
+
+        <div class="form-group text-left">
+            <label for="username" class="sr-only">Username</label>
+            <input th:field="*{username}" th:value="*{username}"
+                   type="text" id="username" class="form-control" placeholder="Username" autofocus>
+            <span class="text-danger text-small px-2 pt-1"
+                  th:if="${#fields.hasErrors('username')}"
+                  th:errors="*{username}"></span>
+        </div>
+
+        <div class="form-group text-left">
+            <label for="email" class="sr-only">Email</label>
+            <input th:field="*{email}" th:value="*{email}"
+                   type="text" id="email" class="form-control" placeholder="Email">
+            <span class="text-danger text-small px-2 pt-1"
+                  th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}"></span>
+        </div>
+
+        <div class="form-group text-left">
+            <label for="password" class="sr-only">Password</label>
+            <div class="input-group">
+                <input th:field="*{password}" th:value="*{password}"
+                       type="password" id="password" class="form-control" placeholder="Password">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-secondary" id="check-password">
+                        <span id="icon-off" data-feather="eye-off"></span>
+                        <span id="icon-on" class="d-none" data-feather="eye"></span>
+                    </button>
+                </div>
+            </div>
+            <span class="text-danger text-small text-left px-2 pt-1"
+                  th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}"></span>
+        </div>
+
+
+
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in"/>
+    </form>
+</th:block>
+<th:block layout:fragment="script_custom">
+    <script th:src="@{/assets/js/register.js}"></script>
+</th:block>
+</body>
+</html>
