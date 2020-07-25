@@ -28,7 +28,7 @@ public class RoleServiceImp implements RoleService {
     }
     @Override
     public Optional<Role> findBasicRole(String name) {
-        var role = roleRepository.findFirstByName("ADMIN");
+        var role = roleRepository.findFirstByName("USER");
         if(role != null) return Optional.of(role);
         return Optional.empty();
     }
