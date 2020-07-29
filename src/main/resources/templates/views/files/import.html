@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html layout:decorate="~{fragments/layouts/main_layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block layout:fragment="stylesheet_custom"/>
+</head>
+<body>
+
+<main layout:fragment="content" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card w-100">
+                    <div class="card-header">
+                        Import Data
+                    </div>
+                    <form class="card-body" method="get" th:action="@{/data/import(error = ${true})}" novalidate
+                          id="import-form" enctype="multipart/form-data">
+                        <div role="alert" style="display: none" id="error"
+                                class="alert alert-danger my-1 w-100">
+                            Input error
+                        </div>
+                        <div class="form-group">
+                            <label for="fileInput">Input</label>
+                            <textarea class="form-control" id="fileInput" rows="10"></textarea>
+                        </div>
+                        <input type="submit" value="submit" class="btn btn-dark">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<th:block layout:fragment="script_custom">
+    <script th:src="@{/assets/js/import.js}"></script>
+</th:block>
+
+</body>
+</html>

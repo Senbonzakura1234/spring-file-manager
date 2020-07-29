@@ -30,6 +30,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+
+                //comment this line below after finish import data
+//                .antMatchers("/data/**").permitAll()
+
+
                 .antMatchers("/css/**").permitAll()
 //                .antMatchers("/**").permitAll()
                 .antMatchers("/javascript/**").permitAll()

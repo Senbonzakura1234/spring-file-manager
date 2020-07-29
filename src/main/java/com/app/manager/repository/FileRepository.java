@@ -9,6 +9,7 @@ import java.util.List;
 
 
 public interface FileRepository extends JpaRepository<File, String> {
+    List<File> findByOrderByIndexNumber();
     List<File> findByIdIn(List<String> listId);
     Page<File> findByNameContains(String queryName, Pageable pageable);
     Page<File> findByNameContainsAndStatus(String queryName, File.StatusEnum status, Pageable pageable);

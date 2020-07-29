@@ -2,7 +2,7 @@ $(function(){
     let input = $('#queryName');
     let inputNavbar = $('#queryNameNavbar');
     let csrf = $('input[name=\'_csrf\']');
-
+    console.log(csrf.val());
     if(input.length){
         // noinspection JSUnusedGlobalSymbols
         input.autocomplete({

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -25,6 +26,18 @@ public class FileServiceImp implements FileService {
     private static final double KiloBytesToBytes = 1000;
     private static final double MegaBytesToBytes = KiloBytesToBytes*KiloBytesToBytes;
     private static final double GigaBytesToBytes = MegaBytesToBytes*KiloBytesToBytes;
+
+    @Override
+    public List<ModelFile> export() {
+        try {
+            List<File> files = fileRepository.findByOrderByIndexNumber();
+            return ModelFile.castToListModels(files);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return new ArrayList<>();
+        }
+    }
 
     @Override
     public void getFileCapacity() {

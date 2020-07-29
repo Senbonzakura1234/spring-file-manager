@@ -110,4 +110,9 @@ public class FileController {
                 "&fileStatus=" + statusFilter +
                 "&sort=" + sort + "&sortBy=" + sortBy;
     }
+
+    @GetMapping("/data/import")
+    public String importFile(){
+        return "views/files/import";
+    }
 }
