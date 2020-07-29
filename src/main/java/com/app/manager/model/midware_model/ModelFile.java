@@ -3,8 +3,6 @@ package com.app.manager.model.midware_model;
 import com.app.manager.entity.File;
 import com.app.manager.model.HelperMethod;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,15 +10,15 @@ public class ModelFile {
     private String id;
     private int indexNumber;
     private String name;
-    private BigDecimal capacity;
+    private double capacity;
     private File.StatusEnum status;
     private String capacityString;
     private String CreatedAt;
     private String UpdatedAt;
 
-    private static final BigDecimal BytesToKiloBytes = new BigDecimal(1000);
-    private static final BigDecimal BytesToMegaBytes = BytesToKiloBytes.multiply(BytesToKiloBytes);
-    private static final BigDecimal BytesToGigaBytes = BytesToMegaBytes.multiply(BytesToKiloBytes);
+    private static final double BytesToKiloBytes = 1000;
+    private static final double BytesToMegaBytes = BytesToKiloBytes*BytesToKiloBytes;
+    private static final double BytesToGigaBytes = BytesToMegaBytes*BytesToKiloBytes;
 
     public ModelFile() {
     }
@@ -30,7 +28,7 @@ public class ModelFile {
         this.name = name;
     }
 
-    public ModelFile(String id, int indexNumber, String name, BigDecimal capacity,
+    public ModelFile(String id, int indexNumber, String name, double capacity,
                      File.StatusEnum status, String createdAt, String updatedAt) {
         this.id = id;
         this.indexNumber = indexNumber;
@@ -42,16 +40,15 @@ public class ModelFile {
         UpdatedAt = updatedAt;
     }
 
-    public static String convertCapacity(BigDecimal capacity){
-        if (capacity == null) return "Undefined";
+    public static String convertCapacity(double capacity){
         try {
-            if(capacity.compareTo(BytesToGigaBytes) > 0)
-                return capacity.divide(BytesToGigaBytes, 2, RoundingMode.UP).toString() + " GB";
-            if(capacity.compareTo(BytesToMegaBytes) > 0)
-                return capacity.divide(BytesToMegaBytes, 2, RoundingMode.UP).toString() + " MB";
-            if(capacity.compareTo(BytesToKiloBytes) > 0)
-                return capacity.divide(BytesToKiloBytes, 2, RoundingMode.UP).toString() + " KB";
-            return capacity.toString() + " B";
+            if(capacity > BytesToGigaBytes)
+                return capacity/BytesToGigaBytes + " GB";
+            if(capacity > BytesToMegaBytes)
+                return capacity/BytesToMegaBytes + " MB";
+            if(capacity > BytesToKiloBytes)
+                return capacity/BytesToKiloBytes + " KB";
+            return capacity + " B";
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
@@ -80,6 +77,7 @@ public class ModelFile {
         File file = new File();
         file.setName(modelFile.getName());
         file.setIndexNumber(modelFile.getIndexNumber());
+        file.setCapacity(modelFile.getCapacity());
         return file;
     }
 
@@ -131,11 +129,11 @@ public class ModelFile {
         UpdatedAt = updatedAt;
     }
 
-    public BigDecimal getCapacity() {
+    public double getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(BigDecimal capacity) {
+    public void setCapacity(double capacity) {
         this.capacity = capacity;
     }
 

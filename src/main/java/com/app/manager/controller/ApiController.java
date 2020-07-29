@@ -25,7 +25,7 @@ public class ApiController {
     @PostMapping("/api/search")
     public ResponseEntity<?> index(@Valid @RequestBody SearchModel search, Errors errors) {
         if(errors.hasErrors()) return ResponseEntity.badRequest().body(errors.getAllErrors());
-        Sort sortable = Sort.by("indexNumber").ascending();
+        Sort sortable = Sort.by("name").ascending();
         Pageable pageable = PageRequest.of(0, 20, sortable);
         Page<String> files = fileService.getAllName(search.getFileName(), File.StatusEnum.ALL, pageable);
         return ResponseEntity.ok(files);

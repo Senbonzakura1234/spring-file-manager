@@ -57,7 +57,6 @@
 
 
 $(function(){
-    console.log($('input[name=\'_csrf\']').val());
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });

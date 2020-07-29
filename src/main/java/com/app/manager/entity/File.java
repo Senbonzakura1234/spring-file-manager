@@ -3,7 +3,6 @@ package com.app.manager.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "file")
@@ -24,7 +23,7 @@ public class File {
     private String name;
 
     @Column(name = "capacity", nullable = false)
-    private BigDecimal capacity;
+    private double capacity;
 
     @Column(name = "status", nullable = false)
     private StatusEnum status;
@@ -122,11 +121,11 @@ public class File {
         this.deletedat = deletedat;
     }
 
-    public BigDecimal getCapacity() {
+    public double getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(BigDecimal capacity) {
+    public void setCapacity(double capacity) {
         this.capacity = capacity;
     }
 }

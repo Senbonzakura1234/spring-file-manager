@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -23,9 +22,9 @@ public class FileServiceImp implements FileService {
     @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
     @Autowired
     FileRepository fileRepository;
-    private static final BigDecimal KiloBytesToBytes = new BigDecimal(1000);
-    private static final BigDecimal MegaBytesToBytes = KiloBytesToBytes.multiply(KiloBytesToBytes);
-    private static final BigDecimal GigaBytesToBytes = MegaBytesToBytes.multiply(KiloBytesToBytes);
+    private static final double KiloBytesToBytes = 1000;
+    private static final double MegaBytesToBytes = KiloBytesToBytes*KiloBytesToBytes;
+    private static final double GigaBytesToBytes = MegaBytesToBytes*KiloBytesToBytes;
 
     @Override
     public void getFileCapacity() {
@@ -39,17 +38,17 @@ public class FileServiceImp implements FileService {
                     Matcher m = Pattern.compile("\\(([^)]+)\\)").matcher(oldName);
                     while(m.find()) {
                         String capacity = m.group(1);
-                        BigDecimal capacityDouble = BigDecimal.valueOf(Double.parseDouble(
-                                capacity.replaceAll("[^\\d.]", "")));
+                        double capacityDouble = Double.parseDouble(
+                                capacity.replaceAll("[^\\d.]", ""));
 
                         if(capacity.contains(" B")){
                             item.setCapacity(capacityDouble);
                         } else if(capacity.contains(" kB")){
-                            item.setCapacity(capacityDouble.multiply(KiloBytesToBytes));
+                            item.setCapacity(capacityDouble*KiloBytesToBytes);
                         } else if(capacity.contains(" MB")){
-                            item.setCapacity(capacityDouble.multiply(MegaBytesToBytes));
+                            item.setCapacity(capacityDouble*MegaBytesToBytes);
                         } else if(capacity.contains(" GB")){
-                            item.setCapacity(capacityDouble.multiply(GigaBytesToBytes));
+                            item.setCapacity(capacityDouble*GigaBytesToBytes);
                         } else {
                             continue;
                         }

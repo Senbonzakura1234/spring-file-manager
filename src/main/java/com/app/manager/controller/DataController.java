@@ -33,7 +33,7 @@ public class DataController {
         return results;
     }
 
-//    @GetMapping("/data/capacity")
+    @GetMapping("/data/capacity")
     public ResponseEntity<?> addCapacity(){
         fileService.getFileCapacity();
         return ResponseEntity.ok("okay");
