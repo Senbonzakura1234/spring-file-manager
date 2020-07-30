@@ -22,7 +22,7 @@ public class User {
     )
     private String id;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<UserRole> userRoles;
 
     @NotBlank(message = "please provide a username")
